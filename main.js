@@ -58,14 +58,44 @@ checkHorizontalWin = (col, row) => {
     return inaRow >= 4;
 }
 
-checkDiagonalWin = (col, row) => {
+checkBottomDiagonalWin = (col, row) => {
     return bottomLeftTopRightWin(col, row);
-
 }
 
+checkTopDiagonalWin = (col, row) => {
+    return topLeftBottomRightWin = (col, row);
+}
 // #TODO
 topLeftBottomRightWin = (col, row) => {
+    // get last dropped | remember, index [row][col]
+    // check for 3 on either side
+    //check if row exists - in loop 
+    var lastDrop = board[row][col]; // 1
 
+    if(lastDrop === 0){
+        console.warn("Checking Win for Empty Space.");
+        return false; 
+    }
+    let inaRow = 1; 
+    for(let i = 1; i <= 4; i++){
+        if(board[row - 1] === undefined){
+            break; 
+        }
+        if (board[row - 1][col + 1] === lastDrop) {
+            inaRow += 1;
+        } else { break } // stop when get to another player or 0; 
+    }
+
+    for(let i = 1; i <= 4; i++){
+        if (board[row + 1] === undefined) {
+            break;
+        }
+        if (board[row + 1][col - 1] === lastDrop) {
+            inaRow += 1;
+        }
+    }
+    return inaRow >= 4; 
+    console.log(lastDrop);
 }
 
 bottomLeftTopRightWin = (col, row) => {
@@ -74,7 +104,6 @@ bottomLeftTopRightWin = (col, row) => {
         console.warn("Checking Win for Empty Space.")
         return false;
     }
-
     let inaRow = 1; // one in a row by default to account for dropped piece.
     // up right / down
 
